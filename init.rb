@@ -1,0 +1,1 @@
+require 'controller_spec_helper'

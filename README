@@ -1,0 +1,38 @@
+-----------------------------------------------------------------------
+-- Controller Test Helper Plugin
+-----------------------------------------------------------------------
+
+The Controller Spec Helper provides some convenient methods that can be used 
+within RSpec examples. Currently the following methods are added:
+
+	* do_request: Request execution and validation
+
+
+-----------------------------------------------------------------------
+-- Initialisation
+-----------------------------------------------------------------------
+
+Include the module inside the spec_helper.rb file:
+
+include ControllerSpecHelper
+
+
+-----------------------------------------------------------------------
+-- Usage
+-----------------------------------------------------------------------
+
+All methods must be called inside an it block:
+
+it "some testing" do
+  do_request(...
+end
+
+* do_request:
+	do_request(:redirect => "root", :flash => [:error], :assigned => { :attribute => :value }) { get :index }
+	
+	Possible parameters:
+		- redirect: Checks whether the action redirected to <value>_path (e.g. "root_path")
+		- template: Checks whether the action rendered the given template (e.g. "new")
+		- flash: Requires an array of exptected flash messages (e.g. [:error, :notice])
+		- assigned: Requires an hash of variable value pairs. These are then specced against the
+		  expression "assigns[:#{var}].should#{value}" (e.g. { :number => " be_nil"} or { :name => "not be_empty"})
