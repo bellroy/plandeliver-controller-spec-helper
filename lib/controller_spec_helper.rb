@@ -15,7 +15,7 @@ module ControllerSpecHelper
     response.should(render_template(options[:template])) if options[:template]
     response.should(redirect_to(eval("#{options[:redirect]}_path"))) if options[:redirect]
     
-    options[:flash].each { |message| flash[message].should_not be_nil } if options[:flash]
+    options[:flash].each { |message| (flash[message] || flash.now[message]).should_not be_nil } if options[:flash]
     options[:vars].each { |var, match| eval "assigns[:#{var}].should#{match}" } if options[:vars]
   end
 end
